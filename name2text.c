@@ -3,9 +3,16 @@
 #include <time.h>
 
 main(void)
+//struct Names
 {
-    int Pick = 1;
-    //random array
+    int pick = 1;
+   union Data {
+       int i;
+       int e;
+   };
+    // need to put bellow arrays into a text file and have program work the same
+    // read into files, and never need to recompile
+    // Char *filenames ="myfile.txt";
     char Vowel[25][25] =
             { "ora", "heo", "hea", "py", "lia", "mia", "lyn", "bell", "vid", "ley","ver",
               "max", "tis", "we", "rto", "vie","jamin","ason", "Ogan", "cob","kson","mel"
@@ -24,29 +31,38 @@ main(void)
               "Q", "R", "S","T","U","V","w","x","y","z"
 
             };
-
+// Struct with file pointers, put input points vowel and letter and output pointers all file IO struct
     FILE *myfile;
-    myfile = fopen("myfile.txt", "w");
+    //fopen("myfile.txt", "r");
+    myfile = fopen("output.txt", "w");
     if(myfile==NULL)
     {
-        printf("error in wrting file");
+        printf("error in writing file");
+        return 1;
         exit(1);
     }
 
     // Showing Names to be combined
+    union Data d1;
+    d1.i = 10;
+    d1.e = 20;
+    printf("%d\n", d1.i);
+    printf("%d", d1.e);
+
     printf("NameComplier\n");
     // assigned variable
     for (int i = 0; i < 25; i++)
         printf("%s\n", Vowel[i]);
     printf("\n");
     // loop adds names together
-    while (Pick == 1) {
+    while (pick == 1) {
         //Random Name Listed
         printf("Randome Name \n");
         srand(time(0));
 
         //Combined 2 names to make 1
         ////// writing in file
+        // could have struct for bottom hash
         fprintf(myfile,"%s\n", Letter[rand() % 10]);
         fprintf(myfile,"%s\n", Vowel[rand() % 10]);
         fprintf(myfile,"%s\n", Vowel[rand() % 10]);
@@ -56,7 +72,7 @@ main(void)
         fclose(myfile);
         // Generate another name
         printf("\nYou want to generate another name(1: yes, 2: no): ");
-        scanf("%d", &Pick);
+        scanf("%d", &pick);
     }
 
     return 0;
